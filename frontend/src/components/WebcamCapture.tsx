@@ -5,8 +5,8 @@ const WebcamCapture = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const [mediaStream, setMediaStream] = useState<MediaStream | null>(null);
-    const [capturedImage, setCapturedImage] = useState<string | null>(null);
-    const [useFrontCamera, setUseFrontCamera] = useState(true);
+  const [capturedImage, setCapturedImage] = useState<string | null>(null);
+  const [useFrontCamera, setUseFrontCamera] = useState(true);
 
   useEffect(() => {
     startWebcam();
@@ -53,8 +53,8 @@ const WebcamCapture = () => {
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
         // Get image data URL from canvas
-          const imageDataUrl = canvas.toDataURL("image/jpeg");
-          console.log(imageDataUrl)
+        const imageDataUrl = canvas.toDataURL("image/jpeg");
+        console.log(imageDataUrl);
 
         // Set the captured image
         setCapturedImage(imageDataUrl);
@@ -93,6 +93,7 @@ const WebcamCapture = () => {
             ref={videoRef}
             autoPlay
             muted
+            playsInline
             className="w-full rounded-lg md:h-screen md:object-cover md:rounded-none"
           />
           <canvas ref={canvasRef} className="hidden" />
@@ -105,9 +106,7 @@ const WebcamCapture = () => {
             </button>
           ) : (
             <>
-              <button onClick={()=>(
-                setUseFrontCamera(!useFrontCamera)
-              )}>
+              <button onClick={() => setUseFrontCamera(!useFrontCamera)}>
                 <img src="/refresh-cw.svg" />
               </button>
               <button
