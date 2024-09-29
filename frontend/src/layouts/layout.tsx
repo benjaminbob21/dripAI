@@ -9,7 +9,7 @@ type Props = {
 
 const Layout = ({ children, showReset, toggleView }: Props) => {
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-dvh">
       <Header showReset={showReset} toggleView={toggleView} />
       <div className="container mx-auto flex-1">{children}</div>
     </div>

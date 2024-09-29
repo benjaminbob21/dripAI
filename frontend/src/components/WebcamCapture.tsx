@@ -126,13 +126,13 @@ const WebcamCapture = ({ toggleView, setReview }: WebcamCaptureProps) => {
           <div className="flex w-full justify-between">
             <button
               onClick={resetState}
-              className="bg-black text-white rounded-full px-6 py-2 shadow-md hover:bg-gray-100 font-bold"
+              className="bg-black text-white rounded-full px-6 py-2 shadow-md font-bold"
             >
               Reset
             </button>
             <button
               onClick={imageAnalysis}
-              className="bg-black text-white rounded-full px-6 py-2 shadow-md hover:bg-gray-100 font-bold"
+              className="bg-black text-white rounded-full px-6 py-2 shadow-md font-bold"
             >
               Analyse
             </button>
@@ -172,7 +172,7 @@ const WebcamCapture = ({ toggleView, setReview }: WebcamCaptureProps) => {
             <div className="flex gap-6">
               <button
                 onClick={captureImage}
-                className="bg-black stroke-white text-white rounded-full px-3 py-3 hover:bg-gray-800"
+                className="bg-black stroke-white text-white rounded-full px-3 py-3"
               >
                 <img
                   src="/camera.svg"
