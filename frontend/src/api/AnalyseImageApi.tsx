@@ -16,6 +16,7 @@ export type Recommendation = {
 export type ReviewResponse = {
   clothes: Cloth[],
   rating: number,
+  review: string,
   recommendation_1: Recommendation[],
   recommendation_2: Recommendation[],
   recommendation_3: Recommendation[],

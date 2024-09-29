@@ -5,18 +5,17 @@ import Layout from './layouts/layout'
 import ResponseBox from './components/ResponseBox';
 import { ReviewResponse } from './api/AnalyseImageApi';
 
-
 function App() {
-  const [showWebcam, setShowWebCam] = useState(true);
-  const [review, setReview] = useState<ReviewResponse | null>(null);
+    const [showWebcam, setShowWebCam] = useState(true);
+    const [review, setReview] = useState<ReviewResponse | null>(null);
 
-  return (
-    <Layout>
-      {
-        showWebcam ? <WebcamCapture toggleView={() => setShowWebCam(!showWebcam)} setReview={(review: ReviewResponse) => setReview(review)} /> : <ResponseBox review={review} />
-      }
-    </Layout>
-  )
+    return (
+        <Layout showReset={!showWebcam} toggleView={() => setShowWebCam(!showWebcam)}>
+            {
+                showWebcam ? <WebcamCapture toggleView={() => setShowWebCam(!showWebcam)} setReview={(review: ReviewResponse) => setReview(review)} /> : <ResponseBox review={review} />
+            }
+        </Layout>
+    )
 }
 
 export default App

@@ -3,12 +3,14 @@ import Header from "@/components/Header";
 
 type Props = {
   children: React.ReactNode;
+  showReset: boolean;
+  toggleView: () => void;
 };
 
-const Layout = ({ children}: Props) => {
+const Layout = ({ children, showReset, toggleView }: Props) => {
   return (
     <div className="flex flex-col h-screen">
-      <Header/>
+      <Header showReset={showReset} toggleView={toggleView} />
       <div className="container mx-auto flex-1">{children}</div>
     </div>
   );

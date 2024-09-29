@@ -6,7 +6,7 @@ type ResponseBoxProps = {
 
 function ResponseBox({ review }: ResponseBoxProps) {
     if (review == null) return <>error</>
-    return <div className="bg-gray-200 h-full pb-12">
+    return <div className="h-full pb-12">
         <div className="flex flex-col h-full">
             <div className="grow">
                 {""}
@@ -18,7 +18,11 @@ function ResponseBox({ review }: ResponseBoxProps) {
                         <p>{review.rating} {review.rating == 1 ? "Star" : "Stars"}</p>
                     </div>
                     <div>
-                        <h3 className="font-bold">RECOMMENDATIONS</h3>
+                        <h2 className="font-bold">REVIEW</h2>
+                        <p>{ review.review }</p>
+                    </div>
+                    <div>
+                        <h2 className="font-bold">RECOMMENDATIONS</h2>
                         <ol className="list-decimal pl-5">{review.recommendation_1.map((rec) => <li> {rec.change} </li>)}</ol>
                     </div>
                 </div>
