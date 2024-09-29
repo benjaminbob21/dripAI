@@ -1,8 +1,17 @@
-import WebcamCapture from "@/components/WebcamCapture";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 
-const Layout = () => {
+type Props = {
+  children: React.ReactNode;
+};
+
+const Layout = ({ children}: Props) => {
   return (
-    <div className="bg-red-600 text-center font-bold text-3xl"><WebcamCapture/></div>
+    <div className="flex flex-col min-h-screen">
+      <Header/>
+      <div className="container mx-auto flex-1 py-10">{children}</div>
+      <Footer/>
+    </div>
   );
 };
 

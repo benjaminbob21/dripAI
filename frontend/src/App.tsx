@@ -1,10 +1,14 @@
+import WebcamCapture from './components/WebcamCapture'
 import './global.css'
 import Layout from './layouts/layout'
+
 
 function App() {
 
   return (
-    <Layout/>
+    <Layout>
+      <WebcamCapture />
+    </Layout>
   )
 }
 

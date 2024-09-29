@@ -16,7 +16,7 @@ const WebcamCapture = () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: {
-          facingMode: useFrontCamera == true ? "user" : "environment", // Request the front camera (selfie camera)
+          facingMode: useFrontCamera ? "user" : "environment",
         },
       });
       if (videoRef.current) {
@@ -28,12 +28,9 @@ const WebcamCapture = () => {
     }
   };
 
-  // Function to stop the webcam
   const stopWebcam = () => {
     if (mediaStream) {
-      mediaStream.getTracks().forEach((track) => {
-        track.stop();
-      });
+      mediaStream.getTracks().forEach((track) => track.stop());
       setMediaStream(null);
     }
   };
@@ -44,81 +41,88 @@ const WebcamCapture = () => {
       const canvas = canvasRef.current;
       const context = canvas.getContext("2d");
 
-      // Set canvas dimensions to match video stream
       if (context && video.videoWidth && video.videoHeight) {
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
-
-        // Draw video frame onto canvas
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-        // Get image data URL from canvas
         const imageDataUrl = canvas.toDataURL("image/jpeg");
-        console.log(imageDataUrl);
-
-        // Set the captured image
         setCapturedImage(imageDataUrl);
-
-        // Stop the webcam
         stopWebcam();
       }
     }
   };
 
-  // Function to reset state (clear media stream and refs)
   const resetState = () => {
-    stopWebcam(); // Stop the webcam if it's active
-    setCapturedImage(null); // Reset captured image
+    stopWebcam();
+    setCapturedImage(null);
+    startWebcam();
   };
 
   return (
-    <div className="relative w-full max-w-md mx-auto">
-      {capturedImage ? (
-        <>
-          <img
-            src={capturedImage}
-            className="w-full rounded-lg md:h-screen md:object-cover md:rounded-none"
-            alt="Captured"
-          />
-          <button
-            onClick={resetState}
-            className="absolute bottom-5 left-1/2 transform -translate-x-1/2 bg-white text-gray-800 rounded-full px-6 py-2 shadow-md hover:bg-gray-100"
-          >
-            Reset
-          </button>
-        </>
-      ) : (
-        <>
-          <video
-            ref={videoRef}
-            autoPlay
-            muted
-            playsInline
-            className="w-full rounded-lg md:h-screen md:object-cover md:rounded-none"
-          />
-          <canvas ref={canvasRef} className="hidden" />
-          {!videoRef.current ? (
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <div className="relative w-full max-w-md mx-auto rounded-2xl overflow-hidden">
+        {capturedImage ? (
+          <>
+            <img
+              src={capturedImage}
+              className="w-full h-[500px] object-cover rounded-lg"
+              alt="Captured"
+            />
             <button
-              onClick={startWebcam}
-              className="absolute bottom-5 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white rounded-full px-6 py-2 shadow-md hover:bg-gray-700"
+              onClick={resetState}
+              className="absolute bottom-5 left-1/2 transform -translate-x-1/2 bg-white text-gray-800 rounded-full px-6 py-2 shadow-md hover:bg-gray-100"
             >
-              Start Webcam
+              Reset
             </button>
-          ) : (
-            <>
-              <button onClick={() => setUseFrontCamera(!useFrontCamera)}>
-                <img src="/refresh-cw.svg" />
-              </button>
+          </>
+        ) : (
+          <>
+            <video
+              ref={videoRef}
+              autoPlay
+              muted
+              playsInline
+              className="w-full h-[500px] object-cover rounded-lg"
+            />
+            <canvas ref={canvasRef} className="hidden" />
+            <div className="flex justify-between items-center mt-10">
               <button
                 onClick={captureImage}
-                className="absolute bottom-5 left-1/2 transform -translate-x-1/2 bg-white text-gray-800 rounded-full px-6 py-2 shadow-md hover:bg-gray-100"
+                className=" stroke-white text-white rounded-full shadow-lg px-3 py-3 hover:bg-gray-800"
               >
-                Capture Image
+                <img
+                  src="/upload.svg"
+                  alt="Take Photo"
+                  className="h-6 w-6 stroke-white"
+                />
               </button>
-            </>
-          )}
-        </>
-      )}
+              <div className="flex gap-6">
+                <button
+                  onClick={captureImage}
+                  className="bg-black stroke-white text-white rounded-full px-3 py-3 hover:bg-gray-800"
+                >
+                  <img
+                    src="/camera.svg"
+                    alt="Take Photo"
+                    className="h-6 w-6 stroke-white"
+                  />
+                </button>
+                <button
+                  onClick={() => setUseFrontCamera(!useFrontCamera)}
+                  className="bg-black stroke-white text-white rounded-full px-3 py-3 hover:text-gray-600 transition"
+                >
+                  <img
+                    src="/refresh-cw.svg"
+                    alt="Switch Camera"
+                    className="h-6 w-6"
+                  />
+                </button>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 };
