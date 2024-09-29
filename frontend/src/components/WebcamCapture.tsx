@@ -1,8 +1,13 @@
-import { analyseImageApi } from "@/api/AnalyseImageApi";
+import { analyseImageApi, ReviewResponse } from "@/api/AnalyseImageApi";
 import Compressor from "compressorjs";
 import { useState, useRef, useEffect } from "react";
 
-const WebcamCapture = () => {
+type WebcamCaptureProps = {
+  toggleView: () => void,
+  setReview: (review: ReviewResponse) => void,
+}
+
+const WebcamCapture = ({ toggleView, setReview }: WebcamCaptureProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -28,7 +33,7 @@ const WebcamCapture = () => {
           reader.onloadend = () => {
             const base64data = reader.result as string;
             setCapturedImage(base64data);
-        
+
             stopWebcam(); // Optionally stop the webcam if an image is uploaded
           }
 
@@ -45,6 +50,12 @@ const WebcamCapture = () => {
     if (capturedImage) {
       const result = await analyseImage(capturedImage);
       console.log(result);
+
+      if (result.success == true) {
+        toggleView();
+        console.log(JSON.parse(result.message));
+        setReview(JSON.parse(result.message));
+      }
     }
   };
 
