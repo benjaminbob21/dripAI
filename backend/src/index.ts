@@ -22,6 +22,7 @@ app.get("/.api/test", async (req: Request, res: Response) => {
 app.post('/api/analyze-image', async (req: Request, res: Response) => {
   try {
     const { dataImageUrl } = req.body;
+    console.log(req.body)
 
     if (!dataImageUrl) {
       res.status(400).json({ success: false, message: 'No image provided in the request.' });
@@ -63,7 +64,7 @@ app.post('/api/analyze-image', async (req: Request, res: Response) => {
     // Send GPT-4's response back to the client
     res.json({
       success: true,
-      message: openaiResponse.data.choices[0].message.content,
+      message: openaiResponse.data.choices[0].message.content.slice(8, -3),
     });
   } catch (error) {
     if (!(error instanceof Error)) return;

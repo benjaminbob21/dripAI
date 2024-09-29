@@ -1,4 +1,4 @@
-import Footer from "@/components/Footer";
+// import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 
 type Props = {
@@ -7,10 +7,9 @@ type Props = {
 
 const Layout = ({ children}: Props) => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col h-screen">
       <Header/>
-      <div className="container mx-auto flex-1 py-10">{children}</div>
-      <Footer/>
+      <div className="container mx-auto flex-1">{children}</div>
     </div>
   );
 };
